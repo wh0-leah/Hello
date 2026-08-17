@@ -1,14 +1,16 @@
 
 const express = require('express');
 const router = express.Router();
- 
+
 let avisos = [];
 let proximoId = 1;
  
+
 router.get('/', (req, res) => {
   res.json({ avisos });
 });
  
+// oi
 router.post('/', (req, res) => {
   const { titulo, mensagem } = req.body;
  
@@ -23,4 +25,3 @@ router.post('/', (req, res) => {
 });
  
 module.exports = router;
- 
