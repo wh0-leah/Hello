@@ -1,26 +1,29 @@
-const express = require("express");
+const express = require('express');
 
 const router = express.Router();
 
-// ─── Tarefa B — Links úteis ───────────────────────────────────────────────────
-// Armazenamento EM MEMÓRIA (não use banco de dados neste trabalho).
-const links = [];
+let links = [];
 let proximoId = 1;
 
-// GET /links — lista todos os links.
-router.get("/", (req, res) => {
-  // TODO (Tarefa B): responda com status 200 e o array `links`.
-  res.status(501).json({ erro: "não implementado" });
+router.get('/', (req, res) => {
+  return res.status(200).json(links);
 });
 
-// POST /links — cria um link { titulo, url }.
-router.post("/", (req, res) => {
-  // TODO (Tarefa B):
-  //  1. Leia titulo e url de req.body.
-  //  2. Se faltar titulo OU url, responda 400.
-  //  3. Crie { id: proximoId++, titulo, url }, adicione em `links`
-  //     e responda 201 com o link criado.
-  res.status(501).json({ erro: "não implementado" });
+router.post('/', (req, res) => {
+  const { titulo, url } = req.body;
+
+  if (!titulo || !url) {
+    return res.status(400).json({ erro: 'O título e a URL são obrigatórios.' });
+  }
+
+  const novoLink = {
+    id: proximoId++,
+    titulo,
+    url
+  };
+
+  links.push(novoLink);
+  return res.status(201).json(novoLink);
 });
 
 module.exports = router;
